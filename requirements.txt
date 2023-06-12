@@ -45,6 +45,6 @@ urllib3==2.0.3
 validators==0.20.0
 watchdog==3.0.0
 zipp==3.15.0
-matplotlib
+matplotlib==3.5.2
 openpyxl
-scikit-learn[alldeps]
+scikit-learn==1.1.1
