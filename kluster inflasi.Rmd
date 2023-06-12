@@ -1,0 +1,83 @@
+---
+title: "Clustering"
+by : Zumrotul Wahidah
+output: html_document
+---
+
+## Library
+
+```{r}
+library(tidyverse)  
+library(cluster)    # Algoritma klastering
+library(factoextra) # Algoritma klastering dan visualisasi
+library(ggplot2)
+library(clValid)
+```
+
+## Data
+
+```{r}
+data <- read.csv("clipboard", header = TRUE)
+data
+summary(data)
+multikol<-cor(data[,2:3])
+multikol #gaada yang lebih 0,7 maka gaada yang terjadi multiko
+kmo <- function(x)
+{
+  x <- subset(x, complete.cases(x)) #menghilangkan data kosong (NA)
+  r <- cor(x) # membuat matriks korelasi
+  r2 <- r^2 # nilai koefisien untuk r square
+  i <- solve(r) # inverse matriks dari matriks korelasi
+  d <- diag(i) # element diagonal dari inverse matriks
+  p2 <- (-i/sqrt(outer(d, d)))^2 # koefisien korelasi parsial kuadrat
+  diag(r2) <- diag(p2) <- 0 #menghapus element diagonal
+  KMO <- sum(r2)/(sum(r2)+sum(p2))
+  MSA <- colSums(r2)/(colSums(r2)+colSums(p2))
+  return(list(KMO=KMO, MSA=MSA))
+  
+}
+kmo(data$Tahunan)
+library(car)
+tindakpidana <- data[,2:3]
+tindakpidana
+rownames(tindakpidana) <- data$Province[1:34]
+```
+
+```{r}
+library(NbClust)
+set.seed(123)
+nc <- NbClust(tindakpidana, min.nc=2, max.nc=15, method="kmeans")
+```
+
+## Menentukan K
+```{r}
+fviz_nbclust(tindakpidana, kmeans, method = "wss") # metode elbo
+fviz_nbclust(tindakpidana, kmeans, method = "silhouette") # metode silhouette
+set.seed(123)
+gap_stat <- clusGap(tindakpidana, FUN = kmeans, nstart = 25,
+                    K.max = 10, B = 50) # metode gap statistic
+fviz_gap_stat(gap_stat)
+```
+
+#Klaster 
+```{r}
+final <- kmeans(tindakpidana,3)
+print(final)
+final$cluster
+final$centers
+final$totss
+final$withinss
+final$tot.withinss
+final$betweenss
+final$size
+final$ifault
+```
+
+```{r}
+fviz_cluster(final,data=tindakpidana)
+akhir = data.frame(data,final$cluster)
+View(akhir)
+```
+
+
+
