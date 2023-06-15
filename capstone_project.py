@@ -103,7 +103,7 @@ with tab2:
 
     with col1:
     #Line Chart Inflasi Year to Year
-        st.header("Inflasi Indonesia 2014-2022")
+        st.header("Inflasi Indonesia 2015-2022")
         chart1 = alt.Chart(df1).mark_bar().encode(
         x = 'Tahun',
         y= 'Inflasi Umum Tahunan'
@@ -197,7 +197,7 @@ with tab2:
             <li>Mei 2022: Permintaan naik memasuki bulan Ramadan dan Hari Raya Idul Fitri sehingga memicu kenaikan harga pangan.</li>
             <li>Juni 2022: Terjadi anomali cuaca di berbagai wilayah yang mengakibatkan gagal panen beberapa komoditas hortikultura sehingga memicu kenaikan harga.</li>
             <li><span style="color: red;">September 2022: Pemerintah menaikkan harga BBM jenis Pertalite 30,72%, Solar naik 32,04%, dan Pertamax naik 16%.</li>
-            <li>PDesember 2022: Musim libur sekolah, perayaaan Natal 2022, dan Tahun Baru 2023 mendorong kenaikan harga komoditas pangan dan transportasi.</li>
+            <li>Desember 2022: Musim libur sekolah, perayaaan Natal 2022, dan Tahun Baru 2023 mendorong kenaikan harga komoditas pangan dan transportasi.</li>
         </ul>
     """, unsafe_allow_html=True)
     st.caption('Sumber Data : :blue[_Databoks_]')
